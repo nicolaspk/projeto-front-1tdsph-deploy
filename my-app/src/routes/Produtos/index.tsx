@@ -23,12 +23,14 @@ export default function Produtos() {
           throw new Error("Erro na listagem dos produtos!");
         }
 
-        const resultado = await resposta.json();
-        if (resultado.status === "error") {
-          throw new Error(resultado.message);
+       //  const resultado: any = await resposta.json();
+        const {status, data} = await resposta.json();
+        
+        if (status === "error") {
+          throw new Error(`Erro na listagem do produto: ${status}`);
         }
 
-        setProdutos(resultado.data);
+        setProdutos(data);
 
       } catch (error) {
         console.error(error);
